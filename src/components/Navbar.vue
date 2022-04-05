@@ -3,47 +3,50 @@ import { RouterLink } from 'vue-router';
 import { ref } from 'vue';
 
 const danaLogo = ref("https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg");
+const mobile = ref(false);
+const mobileNav = ref(false);
+
+function toggleNav() {
+    mobileNav.value = !mobileNav.value
+}
+function checkScreen() {
+    if (window.innerWidth <= 768) {
+        mobile.value = true;
+    }
+    else {
+        mobile.value = false;
+        mobileNav.value = false;
+    }
+}
+
+checkScreen()
+window.addEventListener('resize', checkScreen)
 
 </script>
 
 <template>
-<div class="navbar" fixed>
-<RouterLink to="/"><img alt="DANA logo" class="logo" :src="danaLogo" width="150"/></RouterLink>
-<ul>
-    <li><RouterLink to="">Contact us</RouterLink></li>
-    <li><RouterLink to="/about">About</RouterLink></li>
-</ul>
-</div>
+    <header>
+        <nav>
+            <RouterLink to="/">
+                <img alt="DANA logo" class="logo" :src="danaLogo" />
+            </RouterLink>
+            <div v-show="!mobile" class="nav-link">
+                <RouterLink to="/about">About</RouterLink>
+                <RouterLink to="/contact">Contact us</RouterLink>
+            </div>
+            <div class="icon" v-show="mobile">
+                <i @click="toggleNav" class="fa fa-bars" :class="{ 'icon-active': mobileNav }"></i>
+            </div>
+            <transition name="mobile-nav">
+                <div v-show="mobileNav" class="dropdown-nav-link">
+                    <RouterLink to="/about">About</RouterLink>
+                    <RouterLink to="/contact">Contact us</RouterLink>
+                </div>
+            </transition>
+        </nav>
+    </header>
 </template>
 
 <style scoped lang="less">
-.navbar {
-    box-shadow: 0px 5px 5px #BBBBBB;
-    padding: 5px 15px;
-}
-.logo {
-    padding: 10px 15px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    overflow: hidden;
-    display: inline;
-    background-color: white;
-}
-
-li {
-    float: right;
-    a {
-        display: block;
-        color: grey;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    a:hover {
-        color: black;
-    }
-}
+@import "@/assets/navbar.less";
 </style>
