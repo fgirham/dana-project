@@ -16,8 +16,8 @@ import { RouterLink } from 'vue-router';
         </div>
         <div class="flex-item-right">
             <div class="footer-link">
-                <RouterLink to="/about">ABOUT</RouterLink>
-                <RouterLink to="/contact">CONTACT US</RouterLink>
+                <RouterLink :to="{ name: 'about' }">ABOUT</RouterLink>
+                <RouterLink :to="{ name: 'contact' }">CONTACT US</RouterLink>
             </div>
             <p>&copy; 2017 DANA - PT Espay Debit Indonesia Koe. All Rights Reserved</p>
         </div>
