@@ -27,20 +27,20 @@ window.addEventListener('resize', checkScreen)
 <template>
     <header>
         <nav>
-            <RouterLink to="/">
+            <RouterLink :to="{ name: 'home' }">
                 <img alt="DANA logo" class="logo" :src="danaLogo" />
             </RouterLink>
             <div v-show="!mobile" class="nav-link">
-                <RouterLink to="/about">About</RouterLink>
-                <RouterLink to="/contact">Contact us</RouterLink>
+                <RouterLink :to="{ name: 'about' }">About</RouterLink>
+                <RouterLink :to="{ name: 'contact' }">Contact us</RouterLink>
             </div>
             <div class="icon" v-show="mobile">
                 <i @click="toggleNav" class="fa fa-bars" :class="{ 'icon-active': mobileNav }"></i>
             </div>
             <transition name="mobile-nav">
                 <div v-show="mobileNav" class="dropdown-nav-link">
-                    <RouterLink to="/about">About</RouterLink>
-                    <RouterLink to="/contact">Contact us</RouterLink>
+                    <RouterLink :to="{ name: 'about' }">About</RouterLink>
+                    <RouterLink :to="{ name: 'contact' }">Contact us</RouterLink>
                 </div>
             </transition>
         </nav>
