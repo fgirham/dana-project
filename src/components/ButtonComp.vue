@@ -14,7 +14,7 @@ const buttonColor = computed(() => {
 </script>
 
 <template>
-    <button :style="buttonColor">{{ buttonText }}</button>
+    <button :style="buttonColor" @click="$emit('onClick')">{{ buttonText }}</button>
 </template>
 
 <style scoped lang="less">

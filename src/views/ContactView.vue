@@ -1,6 +1,13 @@
 <script setup>
 import InputComp from '../components/InputComp.vue'
 import ButtonComp from '../components/ButtonComp.vue';
+import { reactive } from 'vue';
+
+const formValue = reactive({
+    name: '',
+    email: '',
+    message: '',
+})
 </script>
 
 <template>
@@ -8,10 +15,10 @@ import ButtonComp from '../components/ButtonComp.vue';
         <div class="flex-item1">
             <h1 class="section-title">Contact Us</h1>
             <form>
-                <InputComp label="Name" type="text" />
-                <InputComp label="E-mail" type="text" />
-                <InputComp :isTextArea="true" label="Message" />
-                <ButtonComp button-text="Send" color="#368CE4"/>
+                <InputComp label="Name" type="text" v-model="formValue.name"/>
+                <InputComp label="E-mail" type="text" v-model="formValue.email"/>
+                <InputComp :isTextArea="true" label="Message" v-model="formValue.message"/>
+                <ButtonComp button-text="Send" color="#368CE4" @on-click="sendMessage"/>
             </form>
         </div>
         <div class="flex-item2">
