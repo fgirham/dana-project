@@ -1,5 +1,6 @@
 <script setup>
 import InputComp from '../components/InputComp.vue'
+import ButtonComp from '../components/ButtonComp.vue';
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import InputComp from '../components/InputComp.vue'
                 <InputComp label="Name" type="text" />
                 <InputComp label="E-mail" type="text" />
                 <InputComp :isTextArea="true" label="Message" />
+                <ButtonComp button-text="Send" color="#368CE4"/>
             </form>
         </div>
         <div class="flex-item2">
