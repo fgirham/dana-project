@@ -49,5 +49,9 @@ button {
     display: inline-block;
     width: var(--btn-width);
     font-family: inherit;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 </style>
