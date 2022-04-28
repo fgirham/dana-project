@@ -3,7 +3,7 @@
         <a :class="['btn-pagination prev-next-btn', firstPageSelected ? 'disabled' : '']"
             @[!firstPageSelected&&`click`]="updatePage(currentPage - 1)">
             <i class="fa fa-angle-left fa-2x"></i>
-            <span>Back</span>
+            <span>{{ prevButton }}</span>
         </a>
         <button
             v-for="n in firstPagesVisible"
@@ -30,7 +30,7 @@
         </button>
         <a :class="['btn-pagination prev-next-btn', lastPageSelected ? 'disabled' : '']"
             @[!lastPageSelected&&`click`]="updatePage(currentPage + 1)">
-            <span>Next</span>
+            <span>{{ nextButton }}</span>
             <i class="fa fa-angle-right fa-2x"></i>
         </a>
     </div>
@@ -54,6 +54,14 @@ export default {
         firstPagesVisible: {
             default: 1, 
             type: Number
+        },
+        nextButton: {
+            default: "Next",
+            type: String,
+        },
+        prevButton: {
+            default: "Back",
+            type: String,
         }
     },
 
@@ -79,7 +87,7 @@ export default {
                 return this.pageNumbers - this.maxVisiblePage
             }
 
-            return Math.max(this.currentPage - Math.floor(this.maxVisiblePage/2), this.firstPagesVisible + 1)
+            return Math.max(this.currentPage - Math.ceil(this.maxVisiblePage/2) + 1, this.firstPagesVisible + 1)
         },
         visiblePages() {
             const range = []

@@ -1,12 +1,19 @@
 <template>
     <div class="photo-container">
-        <Photo v-for="photo in photos" :key="photo.id" :photoUrl="photo.url" :subtitle="photo.title" />
+        <Photo 
+            v-for="photo in photos" 
+            :key="photo.id" 
+            :photoUrl="photo.url" 
+            :subtitle="photo.title" 
+        />
     </div>
     <Pagination 
         :page-numbers="pageNumbers" 
         :current-page="currentPage" 
         :max-visible-page="maxVisiblePage"
         :first-pages-visible = "firstPagesVisible"
+        :next-button = "mobile? '' : 'Next'"
+        :prev-button = "mobile? '' : 'Back'"
         @update-page="updatePage" 
     />
 </template>
@@ -31,9 +38,27 @@ export default {
             photos: [],
             currentPage: 1,
             pageNumbers: Number,
+            mobile: false,
             photosPerPage: 16,
-            maxVisiblePage: 7,
-            firstPagesVisible: 2,
+        }
+    },
+
+    computed: {
+        maxVisiblePage(){
+            if(this.mobile){
+                return 2
+            }
+            else {
+                return 7
+            }
+        },
+        firstPagesVisible(){
+            if(this.mobile){
+                return 1
+            }
+            else {
+                return 2
+            }
         }
     },
 
@@ -54,6 +79,15 @@ export default {
             this.currentPage = pageNumber
         },
 
+        checkScreenSize() {
+            if (window.innerWidth <= 768) {
+                this.mobile = true;
+            }
+            else {
+                this.mobile = false;
+            }
+        }
+
     },
 
     watch: {
@@ -68,7 +102,9 @@ export default {
     },
 
     mounted() {
+        this.checkScreenSize()
         this.fetchPhotos()
+        window.addEventListener('resize', this.checkScreenSize)
     },
 }
 </script>
