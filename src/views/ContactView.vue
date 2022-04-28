@@ -1,14 +1,10 @@
 <script setup>
 import InputComp from '../components/InputComp.vue'
 import ButtonComp from '../components/ButtonComp.vue';
+import ContactForm from '../components/ContactForm.vue';
 import { reactive, ref } from 'vue';
 
 const mobile = ref(false)
-const formValue = reactive({
-    name: '',
-    email: '',
-    message: '',
-})
 
 function checkScreen() {
     if (window.innerWidth <= 768) {
@@ -29,10 +25,7 @@ window.addEventListener('resize', checkScreen)
         <div class="flex-item1">
             <h1 class="section-title">Contact Us</h1>
             <form>
-                <InputComp label="Name" type="text" v-model="formValue.name" />
-                <InputComp label="E-mail" type="text" v-model="formValue.email" />
-                <InputComp :isTextArea="true" label="Message" v-model="formValue.message" />
-                <ButtonComp button-text="Send" color="#368CE4" @on-click="sendMessage" />
+                <ContactForm />
             </form>
         </div>
         <div class="flex-item2">
