@@ -2,7 +2,13 @@
     <div class="photo-container">
         <Photo v-for="photo in photos" :key="photo.id" :photoUrl="photo.url" :subtitle="photo.title" />
     </div>
-    <Pagination :page-numbers="pageNumbers" :current-page="currentPage" @update-page="updatePage" />
+    <Pagination 
+        :page-numbers="pageNumbers" 
+        :current-page="currentPage" 
+        :max-visible-page="maxVisiblePage"
+        :first-pages-visible = "firstPagesVisible"
+        @update-page="updatePage" 
+    />
 </template>
 
 <script>
@@ -23,8 +29,10 @@ export default {
             allPhotos: [],
             photos: [],
             currentPage: 1,
-            pageNumbers: [],
+            pageNumbers: Number,
             photosPerPage: 16,
+            maxVisiblePage: 7,
+            firstPagesVisible: 2,
         }
     },
 
@@ -33,25 +41,19 @@ export default {
             try {
                 const response = await this.axios.get('https://jsonplaceholder.typicode.com/photos')
                 this.allPhotos = response.data
-                console.log(this.allPhotos)
                 this.totalPhotos = this.allPhotos.length
-                for (let i = 1; i <= Math.ceil(this.totalPhotos / this.photosPerPage); i++) {
-                    this.pageNumbers.push(i)
-                }
-                console.log(this.pageNumber)
+                this.pageNumbers = Math.ceil(this.totalPhotos / this.photosPerPage)
                 const indexLastPhoto = this.currentPage * this.photosPerPage
                 const indexFirstPhoto = indexLastPhoto - this.photosPerPage
                 this.photos = this.allPhotos.slice(indexFirstPhoto, indexLastPhoto)
             }
             catch {
-                // alert("Failed to Load")
                 console.log("error")
             }
         },
 
         updatePage(pageNumber) {
             this.currentPage = pageNumber
-            console.log(this.currentPage)
         },
 
     },
@@ -62,7 +64,6 @@ export default {
                 const indexLastPhoto = newPage * this.photosPerPage
                 const indexFirstPhoto = indexLastPhoto - this.photosPerPage
                 this.photos = this.allPhotos.slice(indexFirstPhoto, indexLastPhoto)
-                console.log("handler")
             },
             immediate: true
         }
