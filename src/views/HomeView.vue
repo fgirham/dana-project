@@ -1,9 +1,11 @@
 <script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
+import Hero from '@/components/Hero.vue';
+import PhotoGrid from '@/components/PhotoGrid.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <Hero />
+    <PhotoGrid />
   </main>
 </template>

@@ -25,7 +25,6 @@ window.addEventListener('resize', checkScreen)
 </script>
 
 <template>
-    <header>
         <nav>
             <RouterLink :to="{ name: 'home' }">
                 <img alt="DANA logo" class="logo" :src="danaLogo" />
@@ -44,7 +43,6 @@ window.addEventListener('resize', checkScreen)
                 </div>
             </transition>
         </nav>
-    </header>
 </template>
 
 <style scoped lang="less">
