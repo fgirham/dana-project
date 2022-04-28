@@ -14,6 +14,7 @@
 <script>
 import Pagination from "./Pagination.vue"
 import Photo from "./Photo.vue"
+import { PHOTO_ALBUM } from "../constants/APIConfig"
 
 export default {
     name: 'PhotoGrid',
@@ -38,18 +39,15 @@ export default {
 
     methods: {
         async fetchPhotos() {
-            try {
-                const response = await this.axios.get('https://jsonplaceholder.typicode.com/photos')
-                this.allPhotos = response.data
-                this.totalPhotos = this.allPhotos.length
-                this.pageNumbers = Math.ceil(this.totalPhotos / this.photosPerPage)
-                const indexLastPhoto = this.currentPage * this.photosPerPage
-                const indexFirstPhoto = indexLastPhoto - this.photosPerPage
-                this.photos = this.allPhotos.slice(indexFirstPhoto, indexLastPhoto)
-            }
-            catch {
-                console.log("error")
-            }
+            await PHOTO_ALBUM.get("/photos")
+                .then(response => {
+                    this.allPhotos = response.data
+                })
+            this.totalPhotos = this.allPhotos.length
+            this.pageNumbers = Math.ceil(this.totalPhotos / this.photosPerPage)
+            const indexLastPhoto = this.currentPage * this.photosPerPage
+            const indexFirstPhoto = indexLastPhoto - this.photosPerPage
+            this.photos = this.allPhotos.slice(indexFirstPhoto, indexLastPhoto)
         },
 
         updatePage(pageNumber) {

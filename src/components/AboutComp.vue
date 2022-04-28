@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { STAR_WARS } from "../constants/APIConfig"
+
 export default {
     name: 'AboutComponent',
 
@@ -55,8 +57,8 @@ export default {
 
 
     methods: {
-        fetchFilm() {
-            this.axios.get("https://swapi.dev/api/films/1/")
+        async fetchFilm() {
+            await STAR_WARS.get("/films/1/")
                 .then((result) => {
                     this.film = result.data
                 })
@@ -71,10 +73,11 @@ export default {
         }
     },
 
-    created() {
+    mounted() {
+        this.checkScreen()
         this.fetchFilm()
         window.addEventListener('resize', this.checkScreen)
-    },
+    }
 }
 </script>
 

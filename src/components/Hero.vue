@@ -13,6 +13,7 @@
 <script>
 import ButtonComp from "./ButtonComp.vue"
 import { RouterLink } from "vue-router"
+import { CHUCK_NORRIS } from "../constants/APIConfig"
 
 export default {
     name: 'Hero',
@@ -30,8 +31,8 @@ export default {
     },
 
     methods: {
-        fetchSubtitle() {
-            this.axios.get('https://api.chucknorris.io/jokes/random')
+        async fetchSubtitle() {
+            await CHUCK_NORRIS.get('/jokes/random')
                 .then((response) => {
                     this.subtitle = response.data.value
                 })
